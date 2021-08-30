@@ -1,0 +1,17 @@
+{
+  "name": "ftp",
+  "version": "1.0.0",
+  "license": "APACHE",
+  "dependencies": {
+    "common": "https://github.com/rubenscurvello/common.git",
+    "ftp": "https://github.com/rubenscurvello/ftp.git",
+    "shelljs": "^0.8.4",
+    "types": "https://github.com/rubenscurvello/types.git"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "@types/shelljs": "^0.8.9",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}
