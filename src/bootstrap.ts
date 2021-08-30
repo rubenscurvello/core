@@ -27,7 +27,7 @@ const bootstrap = async (config: Config) => {
     Logger.info("ENVIANDO DADOS XXX VIA FTP");
     const ftp3 = new FTP(config.auth.ftp);
     await ftp3.connect();
-    const estoque = ConfigJson.ftp.path;
+    const estoque = ConfigJson.ftp.path + "EXAMPLE.csv";
     const sendFile = await ftp3.sendFile("./files/EXAMPLE.csv", estoque);
 
     Logger.info("ENCERRANDO PROCESSO");
