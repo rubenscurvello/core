@@ -19,10 +19,10 @@ const bootstrap = async (config: Config) => {
     Logger.info("EXECUTANDO SHELL SCRIPT");
     //const shell = shelljs.exec('ping -c 4 8.8.8.8').code
     const shell = shelljs.exec("./files/EXAMPLE.sh").code;
-    // if (shell !== 0) {
-    //   Logger.error("ERRO AO EXECUTAR ARQUIVO SH");
-    //   process.exit(1);
-    // }
+    if (shell !== 0) {
+      Logger.error("ERRO AO EXECUTAR ARQUIVO SH");
+      process.exit(1);
+    }
 
     Logger.info("ENVIANDO DADOS XXX VIA FTP");
     const ftp3 = new FTP(config.auth.ftp);
