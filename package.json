@@ -4,6 +4,7 @@
   "license": "APACHE",
   "dependencies": {
     "common": "https://github.com/rubenscurvello/common.git",
+    "data": "https://github.com/rubenscurvello/data.git",
     "database": "https://github.com/rubenscurvello/database.git",
     "ftp": "https://github.com/rubenscurvello/ftp.git",
     "shelljs": "^0.8.4",
