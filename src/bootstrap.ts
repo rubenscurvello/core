@@ -1,9 +1,15 @@
 import { Config } from "types";
 import ConfigJson from "../config/index";
+import Data from "data";
+import Database from "database";
 import FTP from "ftp";
-import { Logger } from "common";
-import { Validator } from "common";
+import { Logger, Validator } from "common";
 import shelljs from "shelljs";
+
+type Entity = {
+  file: string
+  name: string
+}
 
 const bootstrap = async (config: Config) => {
   try {
@@ -15,6 +21,29 @@ const bootstrap = async (config: Config) => {
     await ftp.connect();
     Logger.info("ENCERRANDO CONEXÃO FTP");
     await ftp.disconnect();
+
+    const database = new Database(config.database);
+    const entities: Entity[] = [{ file: 'clientes.csv', name: 'Clients' }];
+
+    const respository = database.getRepository();
+
+    const csv = new Data();
+
+    for(const entity of entities) {
+      const data = [];
+      const file = `output\\${entity.file}`
+      const limit = 1000;
+      let page = 1;
+      let response = await respository[`get${entity.name}`]({ limit, page })
+      while(response.hasNext) {
+        data.push(response.data);
+        page++
+        response = await respository[`get${entity.name}`]({ limit, page })
+      }
+      // APPEND DIRETO NO WHILE?
+      csv.save(data, file)
+      ftp.sendFile(entity.file, file)
+    }
 
     Logger.info("EXECUTANDO SHELL SCRIPT");
     //const shell = shelljs.exec('ping -c 4 8.8.8.8').code
